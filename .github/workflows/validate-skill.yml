@@ -34,6 +34,19 @@ jobs:
       - name: Install validation dependency
         run: python -m pip install -r requirements-dev.txt
 
+      - name: Install shared Codex and Antigravity workspace skill
+        shell: pwsh
+        run: .\scripts\install-workspace-skill.ps1
+
+      - name: Verify shared workspace install
+        shell: pwsh
+        run: |
+          $target = ".agents\skills\ai-agent-insights"
+          if (-not (Test-Path "$target\SKILL.md")) { throw "Workspace skill missing" }
+          $count = (Get-ChildItem "$target\references" -File -Recurse).Count
+          if ($count -ne 5) { throw "Expected five skill reference files, found $count" }
+          Write-Host "PASS: shared workspace installation contains SKILL.md and five references"
+
       - name: Validate sources and build package
         run: python scripts/validate_skill.py --build-package
 
