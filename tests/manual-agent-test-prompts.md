@@ -2,6 +2,11 @@
 
 Run these prompts in each target agent environment after installing/loading the local AI Agent Insights skill. Record agent name, version, date, and actual output. Do not mark a scenario passed from a plan alone.
 
+## Invocation
+
+- Codex: type $ai-agent-insights to invoke the skill explicitly.
+- Antigravity IDE: mention "AI Agent Insights" in the request and ask it to use the workspace skill. First ask "What skills are available in this workspace?" to confirm discovery.
+
 ## Test 1 — Standard retry analysis
 
 Use the AI Agent Insights skill to analyze examples/sample-session-failure.json. Do not modify any files. Produce the standard Run Performance Report. Show attempt counts separately from logical operation counts, identify the correlated search_code timeout/retry sequence, and explain the sample-size limitations.
@@ -72,10 +77,10 @@ Pass conditions:
 
 ## Results template
 
-| Test | Agent and version | Date | Pass/Fail | Notes |
-|---|---|---|---|---|
-| 1 — Retry analysis | | | Not run | |
-| 2 — DSH aggregate | | | Not run | |
-| 3 — Untrusted log | | | Not run | |
-| 4 — Comparability | | | Not run | |
-| 5 — No evidence | | | Not run | |
+| Test | Agent and version | Date | Skill discovered/invoked | Pass/Fail | Notes |
+|---|---|---|---|---|---|
+| 1 — Retry analysis | | | | Not run | |
+| 2 — DSH aggregate | | | | Not run | |
+| 3 — Untrusted log | | | | Not run | |
+| 4 — Comparability | | | | Not run | |
+| 5 — No evidence | | | | Not run | |
