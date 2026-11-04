@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import zipfile
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -124,6 +125,79 @@ def validate_references(skill_text: str) -> set[Path]:
         fail("A referenced methodology file is not included in the marketplace package.")
     return referenced
 
+def parse_timestamp(value: str) -> datetime:
+    if not isinstance(value, str):
+        fail("Concurrency fixture timestamp must be a string.")
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        fail(f"Invalid concurrency fixture timestamp: {value} ({exc})")
+
+def has_complete_interval(item: dict[str, Any]) -> bool:
+    return bool(item.get("started_at") and item.get("ended_at"))
+
+def intervals_overlap(first: dict[str, Any], second: dict[str, Any]) -> bool:
+    if not has_complete_interval(first) or not has_complete_interval(second):
+        return False
+    first_start = parse_timestamp(first["started_at"])
+    first_end = parse_timestamp(first["ended_at"])
+    second_start = parse_timestamp(second["started_at"])
+    second_end = parse_timestamp(second["ended_at"])
+    return first_start < second_end and second_start < first_end
+
+def validate_concurrency_fixture() -> dict[str, int]:
+    path = ROOT / "examples/sample-session-concurrency.json"
+    challenge = json.loads(path.read_text(encoding="utf-8"))
+    tools = challenge["tool_calls"]
+    requests = challenge["llm_requests"]
+
+    tool_successes = sum(item.get("status") == "success" for item in tools)
+    tool_failures = sum(item.get("status") != "success" for item in tools)
+    llm_successes = sum(item.get("status") == "success" for item in requests)
+    llm_failures = sum(item.get("status") != "success" for item in requests)
+
+    if challenge["session"]["duration_ms"] != 12000:
+        fail("Concurrency fixture session duration expectation failed.")
+    if (len(tools), tool_successes, tool_failures) != (5, 2, 3):
+        fail("Concurrency fixture tool record/outcome expectations failed.")
+    if (len(requests), llm_successes, llm_failures) != (3, 1, 2):
+        fail("Concurrency fixture LLM record/outcome expectations failed.")
+    if sum(item["duration_ms"] for item in tools) != 11000:
+        fail("Concurrency fixture cumulative tool duration expectation failed.")
+    if sum(item["duration_ms"] for item in requests) != 7300:
+        fail("Concurrency fixture cumulative LLM duration expectation failed.")
+    if any("logical_operation_id" in item for item in tools):
+        fail("Concurrency fixture must omit logical tool-operation IDs.")
+    if any("logical_request_id" in item for item in requests):
+        fail("Concurrency fixture must omit logical LLM-request IDs.")
+
+    complete_tool_intervals = sum(has_complete_interval(item) for item in tools)
+    complete_llm_intervals = sum(has_complete_interval(item) for item in requests)
+    if (complete_tool_intervals, complete_llm_intervals) != (4, 1):
+        fail("Concurrency fixture timestamp-completeness expectations failed.")
+
+    by_call_id = {item["call_id"]: item for item in tools}
+    by_attempt_id = {item["attempt_id"]: item for item in requests}
+    if not intervals_overlap(by_call_id["tool-001"], by_call_id["tool-002"]):
+        fail("Concurrency fixture search_docs overlap expectation failed.")
+    if not intervals_overlap(by_attempt_id["llm-attempt-001"], by_call_id["tool-001"]):
+        fail("Concurrency fixture LLM/tool overlap expectation failed for tool-001.")
+    if not intervals_overlap(by_attempt_id["llm-attempt-001"], by_call_id["tool-002"]):
+        fail("Concurrency fixture LLM/tool overlap expectation failed for tool-002.")
+    if not intervals_overlap(by_call_id["tool-004"], by_call_id["tool-005"]):
+        fail("Concurrency fixture run_tests overlap expectation failed.")
+
+    return {
+        "concurrency_tool_records": len(tools),
+        "concurrency_tool_successes": tool_successes,
+        "concurrency_tool_failures": tool_failures,
+        "concurrency_llm_attempts": len(requests),
+        "concurrency_llm_successes": llm_successes,
+        "concurrency_llm_failures": llm_failures,
+        "concurrency_tool_intervals_anchored": complete_tool_intervals,
+        "concurrency_llm_intervals_anchored": complete_llm_intervals,
+    }
+
 def validate_fixtures() -> dict[str, int]:
     complete_path = ROOT / "examples/sample-session.json"
     retry_path = ROOT / "examples/sample-session-failure.json"
@@ -235,15 +309,17 @@ def main() -> int:
     validate_frontmatter(metadata)
     references = validate_references(skill_text)
     fixture_counts = validate_fixtures()
+    concurrency_counts = validate_concurrency_fixture()
     package_files = validate_package_sources()
 
     print("PASS: SKILL.md YAML frontmatter (required name/description and optional metadata types)")
     print("PASS: all linked reference files exist and are included in the ZIP")
-    print("PASS: synthetic JSON fixtures and retry-accounting expectations")
+    print("PASS: synthetic JSON fixtures, retry accounting, and concurrency/partial-telemetry expectations")
     print("PASS: package sources are UTF-8 text and clear local secret/injection/command preflight")
     print("Skill:", metadata["name"])
     print("Referenced methodology files:", len(references))
     print("Fixture checks:", json.dumps(fixture_counts, sort_keys=True))
+    print("Concurrency checks:", json.dumps(concurrency_counts, sort_keys=True))
 
     if args.build_package:
         archive = build_and_validate_zip(package_files)
