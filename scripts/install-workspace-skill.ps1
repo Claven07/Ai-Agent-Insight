@@ -41,4 +41,4 @@ Write-Host ""
 Write-Host "Open this repository folder in Codex and/or Antigravity."
 Write-Host "Start a NEW chat, then invoke the skill:"
 Write-Host '  Codex:       $ai-agent-insights'
-Write-Host "  Antigravity: /ai-agent-insights"
+Write-Host '  Antigravity: mention "AI Agent Insights" in your task prompt'
