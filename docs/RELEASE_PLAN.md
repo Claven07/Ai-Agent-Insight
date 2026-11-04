@@ -28,6 +28,7 @@
 - [x] Create synthetic timeout/retry data.
 - [x] Create example performance reports.
 - [x] Define expected behavior for core edge-case scenarios.
+- [x] Prepare manual test prompts for cross-agent validation.
 - [ ] Add additional partial, malformed, duplicate, and multi-run fixtures.
 
 ## Phase 4 — Validation
