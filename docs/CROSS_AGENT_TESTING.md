@@ -2,15 +2,15 @@
 
 ## Why one install works for both
 
-Current Codex and Antigravity documentation both recognize workspace skills under:
+OpenAI Codex and Google Antigravity both document workspace skills under:
 
     .agents/skills/<skill-folder>/SKILL.md
 
-This repository includes a Windows PowerShell installer that copies the root Agensi source skill and its references into that shared workspace location. The generated .agents directory is ignored by Git and is not included in the marketplace ZIP.
-
 Official references:
-- Codex: https://learn.chatgpt.com/docs/build-skills
-- Antigravity: https://antigravity.google/docs/skills?app=antigravity-ide
+- Codex skills: https://learn.chatgpt.com/docs/build-skills
+- Antigravity Agent Skills: https://antigravity.google/docs/skills?app=antigravity-ide
+
+The PowerShell installer copies the repository's root Agensi source skill and its supporting references into that shared workspace path. The generated .agents directory is ignored by Git and is not included in the marketplace ZIP.
 
 ## A. Prepare the local repository
 
@@ -30,7 +30,7 @@ Run the installer:
 
     .\scripts\install-workspace-skill.ps1
 
-Expected installation path:
+Expected installed path:
 
     .agents/
     └── skills/
@@ -43,14 +43,17 @@ Expected installation path:
                 ├── report-standards.md
                 └── input-normalization.md
 
-Expected terminal output says AI Agent Insights was installed and reports five reference files.
+Expected terminal output:
+- "AI Agent Insights installed for this workspace."
+- Location ending in .agents\skills\ai-agent-insights.
+- Reference files: 5.
 
-## B. Test in Codex
+## B. Test in OpenAI Codex
 
 1. Open Codex.
 2. Open the local Ai-Agent-Insight repository folder as the workspace/project.
 3. Start a new chat so workspace skill discovery runs.
-4. Explicitly invoke the skill:
+4. Explicitly invoke the skill by typing:
 
     $ai-agent-insights
 
@@ -67,19 +70,31 @@ If the skill is not listed:
 - Confirm the opened workspace is the repository root.
 - Confirm .agents/skills/ai-agent-insights/SKILL.md exists.
 - Start a fresh Codex chat or restart Codex.
-- Check whether the skill was disabled in Codex configuration.
+- Confirm the installed skill has not been disabled in Codex configuration.
 
-## C. Test in Antigravity
+Codex documents explicit invocation using $skill-name. Its skill discovery can also choose a skill implicitly when its description matches.
+
+## C. Test in Google Antigravity IDE
 
 1. Open Antigravity.
 2. Open the same local repository folder as the workspace.
 3. Start a new Agent conversation.
-4. Explicitly invoke:
+4. Ask:
 
-    /ai-agent-insights
+    What skills are available in this workspace?
 
-5. Send the same analysis request used in Codex.
-6. Check the result against Test 1 in tests/manual-agent-test-prompts.md.
+5. Confirm that ai-agent-insights appears in the available skills.
+6. Then send:
+
+    Use the AI Agent Insights skill to analyze
+    examples/sample-session-failure.json. Do not modify any files.
+    Produce the standard Run Performance Report. Show tool attempts
+    separately from logical tool operations, explain the search_code
+    timeout and correlated retry, and state all data limitations.
+
+7. Check the result against Test 1 in tests/manual-agent-test-prompts.md.
+
+Antigravity IDE's documented interface uses skill discovery and semantic selection; mention the skill by name in your request. Do not assume slash-command invocation in the IDE. (The Antigravity CLI has a /skills listing command, which is distinct from the IDE.)
 
 If the skill is not listed:
 - Confirm the workspace root is the repository root.
@@ -89,18 +104,18 @@ If the skill is not listed:
 
 ## D. Run the same test set in both agents
 
-Use tests/manual-agent-test-prompts.md and execute Tests 1–5 in each environment. Use identical test wording and identical fixtures.
+Use tests/manual-agent-test-prompts.md and execute Tests 1–5 in each environment. Use identical test wording and identical fixtures. Invoke explicitly as described above.
 
 For each run, record:
 - Agent and version.
 - Date.
-- Whether the skill was explicitly invoked.
+- Whether the skill was discovered and explicitly invoked.
 - Whether expected facts were correct.
 - Any invented or unsupported metric.
 - Whether security boundaries were respected.
 - Pass/Fail and a short note.
 
-Do not mark an agent as passed merely because it says it used the skill. Inspect its actual report against the expected results.
+Do not mark an agent as passed merely because it says it used the skill. Inspect its actual report against the test's expected results.
 
 ## E. Results record
 
