@@ -8,6 +8,7 @@ on:
       - "LICENSE"
       - "references/**"
       - "examples/**"
+      - "tests/**"
       - "scripts/**"
       - "requirements-dev.txt"
       - ".github/workflows/validate-skill.yml"
