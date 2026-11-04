@@ -73,7 +73,8 @@ Its differentiators are metric provenance, careful session accounting, run compa
 │   └── sample-failure-performance-report.md
 └── tests/
     ├── validation-checklist.md
-    └── scenarios.md
+    ├── scenarios.md
+    └── manual-agent-test-prompts.md
 ```
 
 ## Development status
