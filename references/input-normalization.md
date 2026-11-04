@@ -38,7 +38,14 @@ The DSH plugin's session snapshot fields can include:
 - Agent: totalSteps, totalLlmRequests, failedLlmRequests.
 - Tools: totalToolCalls, successfulToolCalls, failedToolCalls, toolExecutions, slowestTool.
 
-A snapshot with aggregate counts cannot reconstruct individual timestamps or missing call records. A per-tool execution list can support a more detailed breakdown only for the records it actually contains. A bounded history may omit older tool calls; check whether totals and retained records disagree.
+Important lifecycle and retention caveats:
+- The plugin stores session metrics in memory rather than persisting a durable telemetry archive.
+- Session data is deleted on session/disposed. A detailed snapshot therefore needs to be captured while the session is still available.
+- toolExecutions is bounded by maxToolHistoryPerSession, whose default is 1,000. Aggregate totals can exceed the retained per-call records.
+- The disposal log is a concise summary, not a complete export of all tool records.
+- The global slowest-tool record is not a substitute for per-session event history.
+
+A snapshot with aggregate counts cannot reconstruct individual timestamps or missing call records. A per-tool execution list can support a more detailed breakdown only for the records it actually contains. When aggregate totals exceed retained records, report the difference as a retention/coverage limitation rather than silently treating the retained list as complete.
 
 ## Time normalization
 
