@@ -29,6 +29,9 @@
 - [x] Create example performance reports.
 - [x] Define expected behavior for core edge-case scenarios.
 - [x] Prepare manual test prompts for cross-agent validation.
+- [x] Add shared Windows PowerShell workspace installer for Codex and Antigravity.
+- [x] Add setup and manual-testing instructions for Codex and Antigravity IDE.
+- [x] Verify shared workspace installation in Windows CI.
 - [ ] Add additional partial, malformed, duplicate, and multi-run fixtures.
 
 ## Phase 4 — Validation
