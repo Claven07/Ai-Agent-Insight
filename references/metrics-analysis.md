@@ -19,7 +19,7 @@ Formula:
 
 Reject or flag negative durations. Do not assume timezone semantics for naive timestamps without source context.
 
-Do not sum nested or concurrent durations and label the result as wall-clock elapsed time.
+Do not sum nested or concurrent durations and label the result as wall-clock elapsed time. Keep per-layer cumulative tool and model durations separate when cross-layer overlap cannot be excluded.
 
 ## Rates
 
