@@ -110,6 +110,8 @@ Consult references/input-normalization.md for field aliases, time normalization,
 - Use parent/child or trace identifiers to establish causal relationships.
 - Use timestamps alone to establish temporal order, not causation.
 - Mark orphaned events, missing start/end pairs, overlapping spans, and clock inconsistencies.
+- Never synthesize a missing start or end timestamp from duration alone unless the source schema explicitly defines that derivation and its time basis is unambiguous. Preserve partial timestamps and mark the timeline as partial.
+- Claim interval overlap only when both records have valid start and end timestamps. A duration-only or one-boundary record cannot establish an overlap.
 - Identify the first observed failure in a chain, but call it the root cause only when the evidence rules out plausible upstream causes.
 
 ### 4. Calculate supported metrics
