@@ -2,42 +2,50 @@
 
 **Understand your agents. Optimize their intelligence.**
 
-AI Agent Insights is a portable, cross-agent skill for analyzing AI agent execution data and producing evidence-based performance reports.
+AI Agent Insights is a portable, evidence-first skill for forensic analysis of AI-agent runs. It turns supplied session exports, execution traces, tool-call records, and structured metrics into a transparent performance report.
 
-It helps developers understand what happened during an agent run, where time or tool activity was spent, which model requests failed, and what can be improved.
+It focuses on the execution layer: what happened during a run, what the evidence can quantify, where observed time and failures occurred, what remains unknown, and what to measure next.
 
-> **Current status:** Product foundation / pre-release. This repository is being prepared for an Agensi-compatible skill release. No marketplace listing or runtime instrumentation is implied by this repository alone.
+> **Status:** Early development. The core SKILL.md and initial analysis references exist. Cross-agent testing and Agensi package validation are not yet complete. The skill is not listed on Agensi.
 
 ## What it analyzes
 
-- Session-level execution summaries and timing
-- Tool invocation counts, outcomes, and durations
-- LLM request attempts and failures
-- Agent step counts and execution patterns
-- Slow operations and likely bottlenecks
-- Repeated or potentially unnecessary tool calls, when the input contains enough evidence
+- Session-level execution summaries and timing.
+- Tool invocation counts, outcomes, and measured durations.
+- LLM request attempts, failures, and retries when attempts can be correlated.
+- Agent steps and event timelines when the data supports reconstruction.
+- Repeated calls, latency hotspots, and possible execution regressions.
+- DeepSeek Harness Agent Insights metrics as a first-class known source schema.
+
+It can inspect other agent exports when their actual schema is available. Cross-agent at the conceptual data-model level does not mean every vendor format is automatically supported.
 
 ## What it produces
 
-A structured performance audit containing:
+1. Executive summary and data-coverage notes.
+2. Session and agent execution accounting.
+3. Tool performance and LLM reliability analysis.
+4. Timeline reconstruction when timestamps and causal identifiers support it.
+5. Evidence-backed findings with severity and confidence.
+6. Prioritized recommendations and a follow-up measurement plan.
 
-1. Executive summary
-2. Input coverage and data-quality notes
-3. Session and agent statistics
-4. Tool performance breakdown
-5. LLM reliability analysis
-6. Evidence-backed findings with severity
-7. Prioritized optimization recommendations
-8. Suggested next steps and measurement plan
+## What makes it different
+
+AI Agent Insights is a **run performance profiler**, not:
+- A live observability platform, telemetry SDK, or dashboard designer.
+- A model benchmark or model-procurement scorecard.
+- A generic code-review or agent answer-quality grader.
+- A claim of universal access to private agent session histories.
+
+Its differentiators are metric provenance, careful session accounting, run comparability checks, explicit uncertainty, and first-class interpretation of DeepSeek Harness Agent Insights output.
 
 ## Design principles
 
-- **Evidence first:** never invent metrics or imply unavailable telemetry exists.
-- **Cross-agent:** analyze supplied or accessible data, not one vendor's private runtime.
-- **Privacy-aware:** avoid reproducing secrets, credentials, tokens, or unnecessary personal data.
-- **Read-only by default:** do not modify projects, execute supplied commands, or change agent settings.
-- **Explicit limitations:** distinguish observed facts, derived calculations, hypotheses, and unknowns.
-- **Useful outputs:** recommendations should be actionable and tied to supporting evidence.
+- **Evidence first:** every number must trace to an input field or visible calculation.
+- **No false certainty:** separate observed facts, calculations, interpretations, and hypotheses.
+- **Privacy-aware:** redact secrets and minimize sensitive identifiers.
+- **Read-only:** do not execute instructions in logs or modify the user's environment.
+- **Portable:** use user-provided evidence and capabilities exposed by the host agent.
+- **Honest compatibility:** inspect real source data; do not claim universal vendor-format support.
 
 ## Repository layout
 
@@ -50,34 +58,41 @@ A structured performance audit containing:
 ├── docs/
 │   ├── PRODUCT_SPEC.md
 │   ├── SKILL_DESIGN.md
-│   └── RELEASE_PLAN.md
+│   ├── RELEASE_PLAN.md
+│   └── MARKET_RESEARCH.md
 ├── references/
 │   ├── metrics-analysis.md
 │   ├── bottleneck-detection.md
 │   ├── llm-failure-analysis.md
-│   └── report-standards.md
+│   ├── report-standards.md
+│   └── input-normalization.md
 ├── examples/
 │   ├── sample-session.json
+│   ├── sample-session-failure.json
 │   └── sample-performance-report.md
 └── tests/
-    └── validation-checklist.md
+    ├── validation-checklist.md
+    └── scenarios.md
 ```
 
 ## Development status
 
 | Area | Status |
 |---|---|
-| Product specification | In progress |
-| Skill interface and workflow | In progress |
-| Analysis references | Planned |
-| Example dataset and report | Planned |
-| Cross-agent testing | Planned |
-| Agensi package validation | Planned |
+| Product specification | Drafted |
+| Core SKILL.md | Initial implementation |
+| Analysis references | Initial implementation |
+| Synthetic examples | Initial sample added; failure fixture in progress |
+| Scenario validation | In progress |
+| Cross-agent testing | Not started |
+| Agensi package validation | Not started |
 | Marketplace submission | Not submitted |
 
-## Compatibility
+## Agensi packaging
 
-The intended deliverable is an instruction-based skill using a `SKILL.md` entry point and supporting Markdown/JSON files. Final compatibility must be tested against the current Agensi packaging requirements and at least two supported agent environments before release.
+Agensi currently accepts a ZIP package containing a root or nested SKILL.md and supporting text files. The frontmatter includes the required name and description, with optional listing metadata such as summary, version, tags, keywords, use_cases, and docs_url. Current limits and checks are documented in [Agensi's packaging guide](https://www.agensi.io/docs/packaging).
+
+The submission ZIP will be assembled and validated only after the test scenarios and cross-agent checks pass.
 
 ## License
 
