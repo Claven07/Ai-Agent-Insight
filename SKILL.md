@@ -1,5 +1,5 @@
 ---
-name: AI Agent Insights
+name: ai-agent-insights
 description: Diagnose AI-agent runs from supplied session logs, traces, and metrics. Reconstruct execution timelines, quantify tool and model behavior, find evidenced bottlenecks, compare compatible runs, and produce an actionable forensic report.
 summary: A cross-agent run profiler for session logs and execution metrics. Understand tool latency, LLM failures, retries, repeated calls, and run-to-run changes with evidence-backed reports.
 version: 0.1.0
