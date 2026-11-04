@@ -54,6 +54,9 @@ A snapshot with aggregate counts cannot reconstruct individual timestamps or mis
 - Preserve timezone offsets.
 - Do not assume a timezone for naive local timestamps.
 - Flag negative durations and start/end inversions.
+- A measured duration does not supply a missing start or end timestamp. Do not back-calculate an absent boundary from duration unless the source schema explicitly defines that derivation and the timestamp basis is unambiguous.
+- Establish interval overlap only when both records have valid start and end timestamps. Preserve partial boundary evidence without assigning a complete interval.
+- If some events have only one boundary, label the reconstructed timeline partial and keep those events separate from fully anchored intervals.
 - Do not infer event ordering from file order when reliable timestamps conflict; report the discrepancy.
 
 ## Outcome normalization
