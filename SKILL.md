@@ -101,6 +101,8 @@ Map supplied fields to a working model where possible:
 
 Preserve the original field names and units in your notes. A missing field is unknown, not zero. Do not silently convert units or infer timezone rules for ambiguous timestamps.
 
+Consult references/input-normalization.md for field aliases, time normalization, outcome mapping, and DSH-specific caveats.
+
 ### 3. Reconstruct the execution timeline
 
 - Sort events by validated timestamps while preserving source order as a tie-breaker.
@@ -207,6 +209,12 @@ AI Agent Insights supports DeepSeek Harness Agent Insights metrics as one known 
 - sessionDurationMs
 
 These fields are not universal. Do not require them for other agents. If only aggregate DSH metrics are available, do not claim that a detailed event timeline or per-call distribution can be reconstructed.
+
+For the current DSH plugin implementation:
+- Tool execution history is bounded by maxToolHistoryPerSession (default 1,000).
+- Session metrics are held in memory and removed when the session is disposed.
+- A detailed metrics snapshot must be obtained while the session is available. The disposal summary log is not a persistent full-fidelity event archive.
+- Treat the retained toolExecutions array as a bounded sample when totals exceed retained records.
 
 ## Default report format
 
