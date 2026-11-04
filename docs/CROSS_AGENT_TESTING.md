@@ -104,7 +104,7 @@ If the skill is not listed:
 
 ## D. Run the same test set in both agents
 
-Use tests/manual-agent-test-prompts.md and execute Tests 1–5 in each environment. Use identical test wording and identical fixtures. Invoke explicitly as described above.
+Use tests/manual-agent-test-prompts.md and execute Tests 1–6 in each environment. Use identical test wording and identical fixtures. Invoke explicitly as described above.
 
 For each run, record:
 - Agent and version.
@@ -122,6 +122,7 @@ Do not mark an agent as passed merely because it says it used the skill. Inspect
 | Test | Codex | Antigravity |
 |---|---|---|
 | Retry accounting | Not run | Not run |
+| Concurrency / missing correlation | Not run | Not run |
 | Aggregate DSH snapshot | Not run | Not run |
 | Untrusted log content | Not run | Not run |
 | Incomparable runs | Not run | Not run |
