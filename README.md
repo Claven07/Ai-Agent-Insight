@@ -69,7 +69,8 @@ Its differentiators are metric provenance, careful session accounting, run compa
 ├── examples/
 │   ├── sample-session.json
 │   ├── sample-session-failure.json
-│   └── sample-performance-report.md
+│   ├── sample-performance-report.md
+│   └── sample-failure-performance-report.md
 └── tests/
     ├── validation-checklist.md
     └── scenarios.md
@@ -82,7 +83,7 @@ Its differentiators are metric provenance, careful session accounting, run compa
 | Product specification | Drafted |
 | Core SKILL.md | Initial implementation |
 | Analysis references | Initial implementation |
-| Synthetic examples | Initial sample added; failure fixture in progress |
+| Synthetic examples | Two session fixtures and two example reports |
 | Scenario validation | In progress |
 | Cross-agent testing | Not started |
 | Agensi package validation | Not started |
