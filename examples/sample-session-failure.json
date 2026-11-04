@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "source": "synthetic-example",
+  "session": {
+    "id": "failure-session-001",
+    "started_at": "2026-10-01T11:00:00Z",
+    "ended_at": "2026-10-01T11:00:09Z",
+    "duration_ms": 9000
+  },
+  "agent": {
+    "name": "Example Coding Agent",
+    "version": "0.1.0",
+    "model": "example-model"
+  },
+  "tool_calls": [
+    {
+      "call_id": "tool-attempt-1",
+      "logical_operation_id": "search-op-1",
+      "name": "search_code",
+      "started_at": "2026-10-01T11:00:01.000Z",
+      "ended_at": "2026-10-01T11:00:01.500Z",
+      "duration_ms": 500,
+      "status": "error",
+      "error": {
+        "category": "timeout",
+        "message": "Synthetic timeout example"
+      }
+    },
+    {
+      "call_id": "tool-attempt-2",
+      "logical_operation_id": "search-op-1",
+      "name": "search_code",
+      "started_at": "2026-10-01T11:00:01.700Z",
+      "ended_at": "2026-10-01T11:00:02.600Z",
+      "duration_ms": 900,
+      "status": "success"
+    },
+    {
+      "call_id": "tool-attempt-3",
+      "logical_operation_id": "test-op-1",
+      "name": "run_tests",
+      "started_at": "2026-10-01T11:00:04.000Z",
+      "ended_at": "2026-10-01T11:00:08.500Z",
+      "duration_ms": 4500,
+      "status": "success"
+    }
+  ],
+  "llm_requests": [
+    {
+      "attempt_id": "llm-attempt-1",
+      "logical_request_id": "llm-request-1",
+      "duration_ms": 1200,
+      "status": "timeout"
+    },
+    {
+      "attempt_id": "llm-attempt-2",
+      "logical_request_id": "llm-request-1",
+      "duration_ms": 1500,
+      "status": "success"
+    }
+  ],
+  "notes": "All values are synthetic. Tool and LLM attempts share logical operation identifiers to demonstrate retry accounting."
+}
