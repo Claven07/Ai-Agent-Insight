@@ -87,7 +87,7 @@ Its differentiators are metric provenance, careful session accounting, run compa
 | Synthetic examples | Two session fixtures and two example reports |
 | Scenario validation | In progress |
 | Cross-agent testing | Not started |
-| Agensi package validation | Not started |
+| Agensi package validation | Static CI/package build passed; marketplace scan pending |
 | Marketplace submission | Not submitted |
 
 ## Agensi packaging
