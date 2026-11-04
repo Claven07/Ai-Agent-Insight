@@ -35,10 +35,10 @@
 - [x] Verify required SKILL.md frontmatter fields are present.
 - [x] Verify all referenced methodology files exist.
 - [x] Parse the supplied JSON fixtures and inspect expected retry counts.
-- [ ] Validate YAML frontmatter with a standards-compliant parser.
+- [x] Validate YAML frontmatter with a standards-compliant parser (PyYAML in Windows CI).
 - [ ] Test complete, partial, and malformed input cases.
 - [ ] Test secret redaction and prompt-injection resistance in an agent.
-- [ ] Test with at least two compatible agent environments.
+- [ ] Test with at least two compatible agent environments (manual run outstanding).
 - [ ] Review all marketplace claims and metadata.
 
 ## Phase 5 — Marketplace release
