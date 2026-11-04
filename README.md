@@ -52,6 +52,9 @@ Its differentiators are metric provenance, careful session accounting, run compa
 ```text
 .
 ├── SKILL.md
+├── scripts/
+│   ├── validate_skill.py
+│   └── install-workspace-skill.ps1
 ├── README.md
 ├── LICENSE
 ├── CHANGELOG.md
@@ -59,7 +62,8 @@ Its differentiators are metric provenance, careful session accounting, run compa
 │   ├── PRODUCT_SPEC.md
 │   ├── SKILL_DESIGN.md
 │   ├── RELEASE_PLAN.md
-│   └── MARKET_RESEARCH.md
+│   ├── MARKET_RESEARCH.md
+│   └── CROSS_AGENT_TESTING.md
 ├── references/
 │   ├── metrics-analysis.md
 │   ├── bottleneck-detection.md
