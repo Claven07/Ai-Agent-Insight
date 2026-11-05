@@ -6,13 +6,14 @@ AI Agent Insights is a portable, evidence-first skill for forensic analysis of A
 
 It focuses on the execution layer: what happened during a run, what the evidence can quantify, where observed time and failures occurred, what remains unknown, and what to measure next.
 
-> **Status:** Early development. The core SKILL.md and initial analysis references exist. Cross-agent testing and Agensi package validation are not yet complete. The skill is not listed on Agensi.
+> **Status:** Active early development. The core skill, analysis references, synthetic fixtures, scenario checks, and Windows workspace installer are in place. Cross-agent validation is underway. Test 1 has been reviewed across Codex, VS Code, and Antigravity. Test 2's revised Antigravity report has passed qualitative review; Codex and VS Code results are still pending. Agensi security review and marketplace submission have not been completed.
 
 ## What it analyzes
 
 - Session-level execution summaries and timing.
 - Tool invocation counts, outcomes, and measured durations.
 - LLM request attempts, failures, and retries when attempts can be correlated.
+- Concurrent execution and overlapping intervals when complete timestamps are available.
 - Agent steps and event timelines when the data supports reconstruction.
 - Repeated calls, latency hotspots, and possible execution regressions.
 - DeepSeek Harness Agent Insights metrics as a first-class known source schema.
@@ -42,6 +43,8 @@ Its differentiators are metric provenance, careful session accounting, run compa
 
 - **Evidence first:** every number must trace to an input field or visible calculation.
 - **No false certainty:** separate observed facts, calculations, interpretations, and hypotheses.
+- **Concurrency-aware:** never add overlapping tool/model durations and label the sum as wall-clock time.
+- **No fabricated intervals:** a missing start or end timestamp is not reconstructed from duration alone unless the source schema explicitly supports that derivation.
 - **Privacy-aware:** redact secrets and minimize sensitive identifiers.
 - **Read-only:** do not execute instructions in logs or modify the user's environment.
 - **Portable:** use user-provided evidence and capabilities exposed by the host agent.
@@ -73,6 +76,7 @@ Its differentiators are metric provenance, careful session accounting, run compa
 ├── examples/
 │   ├── sample-session.json
 │   ├── sample-session-failure.json
+│   ├── sample-session-concurrency.json
 │   ├── sample-performance-report.md
 │   └── sample-failure-performance-report.md
 └── tests/
@@ -81,24 +85,39 @@ Its differentiators are metric provenance, careful session accounting, run compa
     └── manual-agent-test-prompts.md
 ```
 
-## Development status
+## Development and validation status
 
-| Area | Status |
+| Area | Current status |
 |---|---|
-| Product specification | Drafted |
-| Core SKILL.md | Initial implementation |
-| Analysis references | Initial implementation |
-| Synthetic examples | Two session fixtures and two example reports |
-| Scenario validation | In progress |
-| Cross-agent testing | Not started |
-| Agensi package validation | Static CI/package build passed; marketplace scan pending |
+| Product specification and market positioning | Drafted |
+| Core SKILL.md and supporting analysis references | Implemented; iterative refinement ongoing |
+| Synthetic fixtures | Three fixtures: successful session, correlated retry/failure session, and concurrency/partial-telemetry challenge |
+| Scenario validation | Eight documented scenarios, including concurrency, missing correlation, partial timestamps, aggregate-only DSH data, untrusted logs, incomparable runs, and malformed input |
+| Manual cross-agent Test 1 | Output review completed for Codex, VS Code, and Antigravity |
+| Manual cross-agent Test 2 | Revised Antigravity report reviewed and passed; Codex and VS Code reports pending |
+| Manual cross-agent Tests 3–6 | Not yet run |
+| Local validator and package build | Baseline validation passed in an earlier CI run; latest Test 2 validator changes still need CI confirmation |
+| Agensi security scan | Pending |
 | Marketplace submission | Not submitted |
+
+### Current Test 2 acceptance focus
+
+The concurrency fixture at `examples/sample-session-concurrency.json` tests whether an agent can:
+
+- Detect overlapping tool calls and cross-layer LLM/tool activity from complete timestamps.
+- Keep cumulative tool and LLM durations separate rather than treating them as session wall-clock time.
+- Avoid inventing missing timestamp boundaries.
+- Treat logical operation/request counts as unknown when correlation identifiers are absent.
+- Avoid asserting retries, duplicate work, root causes, or task success without supporting evidence.
+- Keep severity calibrated to a single synthetic fixture.
+
+Use [the manual validation prompts](tests/manual-agent-test-prompts.md) for the exact prompt and pass conditions. Record actual outputs in the results table; do not mark a scenario passed based only on an agent's claim that it used the skill.
 
 ## Agensi packaging
 
 Agensi currently accepts a ZIP package containing a root or nested SKILL.md and supporting text files. The frontmatter includes the required name and description, with optional listing metadata such as summary, version, tags, keywords, use_cases, and docs_url. Current limits and checks are documented in [Agensi's packaging guide](https://www.agensi.io/docs/packaging).
 
-The submission ZIP will be assembled and validated only after the test scenarios and cross-agent checks pass.
+The repository includes a Windows GitHub Actions workflow to validate the skill and build the marketplace ZIP. A successful local/CI package check is not a substitute for Agensi's own security review or marketplace approval. The final listing package should be submitted only after cross-agent tests and the current CI validation are complete.
 
 ## License
 
