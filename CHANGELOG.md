@@ -2,6 +2,14 @@
 
 All notable changes to AI Agent Insights are documented here.
 
+## 0.1.0 — Initial public release
+
+- Publish AI Agent Insights on the Agensi marketplace.
+- Set one-time price to $4.99.
+- Pass Agensi security review; listing status confirmed live.
+- Complete six manual validation tests across Codex, VS Code, and Antigravity (18/18 owner-reported passes).
+- Include evidence-first run analysis, retry accounting, concurrency handling, partial-timestamp safeguards, DSH snapshot support, and privacy/read-only boundaries.
+
 ## 0.1.0 — Initial development foundation
 
 - Initialize repository and product specification.
@@ -14,7 +22,7 @@ All notable changes to AI Agent Insights are documented here.
 
 ## Unreleased
 
-- Complete six manual validation tests across Codex, VS Code, and Antigravity; all 18 agent/test combinations are owner-reported as passing.
-- Add concurrency and partial-timestamp analysis acceptance checks.
-- Strengthen evidence rules against fabricated intervals, unsupported retry classification, and cross-layer duration addition.
-- Continue release-candidate verification: confirm current CI/package build, archive detailed per-agent test evidence, run Agensi security checks, and submit for marketplace review only after owner approval.
+- Archive detailed per-agent test outputs, exact provider/model versions, and execution dates.
+- Add and record a dedicated malformed JSON / truncated JSONL validation case.
+- Confirm the latest GitHub Actions workflow on the current `main` revision.
+- Prioritize post-launch refinements from real buyer feedback and observed usage.
