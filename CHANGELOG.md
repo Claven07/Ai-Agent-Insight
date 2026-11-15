@@ -14,6 +14,7 @@ All notable changes to AI Agent Insights are documented here.
 
 ## Unreleased
 
-- Validate frontmatter with a standards-compliant YAML parser.
-- Run functional scenarios in two compatible agent environments.
-- Validate the final ZIP against current Agensi security checks.
+- Complete six manual validation tests across Codex, VS Code, and Antigravity; all 18 agent/test combinations are owner-reported as passing.
+- Add concurrency and partial-timestamp analysis acceptance checks.
+- Strengthen evidence rules against fabricated intervals, unsupported retry classification, and cross-layer duration addition.
+- Continue release-candidate verification: confirm current CI/package build, archive detailed per-agent test evidence, run Agensi security checks, and submit for marketplace review only after owner approval.
