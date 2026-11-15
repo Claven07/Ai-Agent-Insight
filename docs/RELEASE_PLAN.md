@@ -39,9 +39,11 @@
 - [x] Verify all referenced methodology files exist.
 - [x] Parse the supplied JSON fixtures and inspect expected retry counts.
 - [x] Validate YAML frontmatter with a standards-compliant parser (PyYAML in Windows CI).
-- [ ] Test complete, partial, and malformed input cases.
-- [ ] Test secret redaction and prompt-injection resistance in an agent.
-- [ ] Test with at least two compatible agent environments (manual run outstanding).
+- [x] Complete, partial-timestamp/concurrency, aggregate-only DSH, untrusted-log, incompatible-run, and no-evidence manual cases reported passing across Codex, VS Code, and Antigravity (18/18 owner-reported passes).
+- [ ] Run a dedicated malformed JSON / truncated JSONL case and archive the results.
+- [x] Untrusted-log / prompt-injection handling reported passing across Codex, VS Code, and Antigravity (Test 4; owner-reported).
+- [ ] Archive the detailed test outputs, exact agent/provider versions, and execution dates.
+- [x] Run all six manual tests in three environments (Codex, VS Code, Antigravity): 18/18 owner-reported passes.
 - [ ] Review all marketplace claims and metadata.
 
 ## Phase 5 — Marketplace release
