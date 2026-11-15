@@ -1,8 +1,8 @@
-# Cross-Agent Testing — Codex and Antigravity
+# Cross-Agent Testing — Codex, VS Code, and Antigravity
 
 ## Why one install works for both
 
-OpenAI Codex and Google Antigravity both document workspace skills under:
+OpenAI Codex and Google Antigravity document workspace skills under the shared path below. VS Code's discovery depends on the selected agent host and its configured skill locations:
 
     .agents/skills/<skill-folder>/SKILL.md
 
@@ -10,7 +10,7 @@ Official references:
 - Codex skills: https://learn.chatgpt.com/docs/build-skills
 - Antigravity Agent Skills: https://antigravity.google/docs/skills?app=antigravity-ide
 
-The PowerShell installer copies the repository's root Agensi source skill and its supporting references into that shared workspace path. The generated .agents directory is ignored by Git and is not included in the marketplace ZIP.
+The PowerShell installer copies the repository's root Agensi source skill and its supporting references into that shared workspace path for Codex and Antigravity. For VS Code, confirm that the active agent host discovers this path or add the appropriate supported skill location. Record the exact VS Code agent/provider and version; VS Code is the editor environment, not a unique model identity. The generated .agents directory is ignored by Git and is not included in the marketplace ZIP.
 
 ## A. Prepare the local repository
 
@@ -102,9 +102,18 @@ If the skill is not listed:
 - Start a new Agent conversation or reload the workspace.
 - Check the Agent Skills/customizations UI if available in your installed Antigravity version.
 
-## D. Run the same test set in both agents
+## D. Test in VS Code
 
-Use tests/manual-agent-test-prompts.md and execute Tests 1–6 in each environment. Use identical test wording and identical fixtures. Invoke explicitly as described above.
+1. Open the repository root as the VS Code workspace.
+2. Identify the actual agent host/provider used in the Chat/Agent view (for example, GitHub Copilot or another installed agent integration); record its version.
+3. Confirm Agent Skills are enabled and that `ai-agent-insights` is discoverable through the host's supported skill picker or command interface.
+4. If the skill is not listed, check the host's configured skill locations. VS Code configurations can vary by agent provider; do not assume that opening the folder alone proves discovery.
+5. Invoke AI Agent Insights explicitly using the mechanism supported by that agent host, then run the exact prompts from `tests/manual-agent-test-prompts.md`.
+6. Record the editor version separately from the underlying agent/provider and model version.
+
+## E. Run the same test set in all three environments
+
+Use tests/manual-agent-test-prompts.md and execute Tests 1–6 in Codex, VS Code, and Antigravity. Use identical test wording and identical fixtures. Invoke explicitly as described above.
 
 For each run, record:
 - Agent and version.
@@ -117,15 +126,15 @@ For each run, record:
 
 Do not mark an agent as passed merely because it says it used the skill. Inspect its actual report against the test's expected results.
 
-## E. Results record
+## F. Results record
 
-| Test | Codex | Antigravity |
-|---|---|---|
-| Retry accounting | Not run | Not run |
-| Concurrency / missing correlation | Not run | Not run |
-| Aggregate DSH snapshot | Not run | Not run |
-| Untrusted log content | Not run | Not run |
-| Incomparable runs | Not run | Not run |
-| No evidence supplied | Not run | Not run |
+| Test | Codex | VS Code | Antigravity |
+|---|---|---|---|
+| Retry accounting | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) |
+| Concurrency / missing correlation | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) |
+| Aggregate DSH snapshot | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) |
+| Untrusted log content | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) |
+| Incomparable runs | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) |
+| No evidence supplied | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) |
 
-A cross-agent test is complete only after both environments produce actual outputs and the outputs are reviewed.
+**Current record:** The project owner confirmed all 18 agent/test combinations passed. Detailed transcripts, execution dates, and exact agent/provider versions have not yet been archived. Preserve those records before using the matrix as formal external validation evidence.
