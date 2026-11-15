@@ -117,9 +117,10 @@ Use [the manual validation prompts](tests/manual-agent-test-prompts.md) for the 
 
 1. Confirm the latest GitHub Actions validation workflow passes on the current `main` revision.
 2. Download and inspect the generated ZIP: root `SKILL.md`, supporting references, archive integrity, file types, paths, and size.
-3. Run Agensi's current automated security/submission checks and resolve any findings.
-4. Review the marketplace description, metadata, screenshots/assets if required, and free launch price.
-5. Submit only after the package and marketplace checks pass; record the listing URL and approved version.
+3. Prepare the listing form: unique name (up to 60 characters), summary (up to 300 characters), Markdown description, a real request plus full result for “See it in action” (700+ characters recommended), compatibility note, free pricing, and up to three categories.
+4. Review the permissions detected from the ZIP (tools, files, network, and services); prepare an optional square logo (512 × 512 recommended), screenshots, limitations, and FAQ.
+5. Run Agensi's current automated security/submission checks and resolve any findings.
+6. Submit only after the package and marketplace checks pass; record the listing URL and approved version.
 
 ## Agensi packaging
 
