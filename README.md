@@ -6,7 +6,7 @@ AI Agent Insights is a portable, evidence-first skill for forensic analysis of A
 
 It focuses on the execution layer: what happened during a run, what the evidence can quantify, where observed time and failures occurred, what remains unknown, and what to measure next.
 
-> **Status:** Active early development. The core skill, analysis references, synthetic fixtures, scenario checks, and Windows workspace installer are in place. Cross-agent validation is underway. Test 1 has been reviewed across Codex, VS Code, and Antigravity. Test 2's revised Antigravity report has passed qualitative review; Codex and VS Code results are still pending. Agensi security review and marketplace submission have not been completed.
+> **Status:** Release-candidate preparation. All six manual validation tests have been reported as passing across Codex, VS Code, and Antigravity (18/18 owner-reported passes). Detailed per-agent outputs, exact versions, and execution dates are not yet archived in this repository. Final CI/package validation and Agensi security review remain outstanding; the skill has not been submitted to the marketplace.
 
 ## What it analyzes
 
@@ -93,10 +93,10 @@ Its differentiators are metric provenance, careful session accounting, run compa
 | Core SKILL.md and supporting analysis references | Implemented; iterative refinement ongoing |
 | Synthetic fixtures | Three fixtures: successful session, correlated retry/failure session, and concurrency/partial-telemetry challenge |
 | Scenario validation | Eight documented scenarios, including concurrency, missing correlation, partial timestamps, aggregate-only DSH data, untrusted logs, incomparable runs, and malformed input |
-| Manual cross-agent Test 1 | Output review completed for Codex, VS Code, and Antigravity |
-| Manual cross-agent Test 2 | Revised Antigravity report reviewed and passed; Codex and VS Code reports pending |
-| Manual cross-agent Tests 3–6 | Not yet run |
-| Local validator and package build | Baseline validation passed in an earlier CI run; latest Test 2 validator changes still need CI confirmation |
+| Manual cross-agent validation | 6/6 tests passed across Codex, VS Code, and Antigravity (18/18 owner-reported passes) |
+| Raw per-agent report archive | Pending; exact versions and execution dates not recorded |
+| Additional malformed-input scenario | Pending separate verification |
+| Latest CI/package validation | Must be confirmed on the current main revision |
 | Agensi security scan | Pending |
 | Marketplace submission | Not submitted |
 
@@ -111,7 +111,15 @@ The concurrency fixture at `examples/sample-session-concurrency.json` tests whet
 - Avoid asserting retries, duplicate work, root causes, or task success without supporting evidence.
 - Keep severity calibrated to a single synthetic fixture.
 
-Use [the manual validation prompts](tests/manual-agent-test-prompts.md) for the exact prompt and pass conditions. Record actual outputs in the results table; do not mark a scenario passed based only on an agent's claim that it used the skill.
+Use [the manual validation prompts](tests/manual-agent-test-prompts.md) for the exact prompts and pass conditions. The results matrix records the owner's confirmation; preserve actual outputs and environment versions before treating the validation as independently reproducible evidence.
+
+## Release-candidate checklist
+
+1. Confirm the latest GitHub Actions validation workflow passes on the current `main` revision.
+2. Download and inspect the generated ZIP: root `SKILL.md`, supporting references, archive integrity, file types, paths, and size.
+3. Run Agensi's current automated security/submission checks and resolve any findings.
+4. Review the marketplace description, metadata, screenshots/assets if required, and free launch price.
+5. Submit only after the package and marketplace checks pass; record the listing URL and approved version.
 
 ## Agensi packaging
 
