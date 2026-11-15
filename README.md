@@ -6,7 +6,7 @@ AI Agent Insights is a portable, evidence-first skill for forensic analysis of A
 
 It focuses on the execution layer: what happened during a run, what the evidence can quantify, where observed time and failures occurred, what remains unknown, and what to measure next.
 
-> **Status:** Release-candidate preparation. All six manual validation tests have been reported as passing across Codex, VS Code, and Antigravity (18/18 owner-reported passes). Detailed per-agent outputs, exact versions, and execution dates are not yet archived in this repository. Final CI/package validation and Agensi security review remain outstanding; the skill has not been submitted to the marketplace.
+> **Status:** Live on the Agensi marketplace. Version 0.1.0 is published at **$4.99 one-time**. Agensi creator dashboard reports the listing as live with security status approved. All six manual validation tests have been reported as passing across Codex, VS Code, and Antigravity (18/18 owner-reported passes). Detailed per-agent outputs and exact environment versions are still not archived in this repository.
 
 ## What it analyzes
 
@@ -94,11 +94,13 @@ Its differentiators are metric provenance, careful session accounting, run compa
 | Synthetic fixtures | Three fixtures: successful session, correlated retry/failure session, and concurrency/partial-telemetry challenge |
 | Scenario validation | Eight documented scenarios, including concurrency, missing correlation, partial timestamps, aggregate-only DSH data, untrusted logs, incomparable runs, and malformed input |
 | Manual cross-agent validation | 6/6 tests passed across Codex, VS Code, and Antigravity (18/18 owner-reported passes) |
+| Agensi listing | <https://agensi.io/skills/ai-agent-insights> — Live |
+| Agensi security review | Approved |
+| Marketplace price | $4.99 one-time |
+| Marketplace version | 0.1.0 |
 | Raw per-agent report archive | Pending; exact versions and execution dates not recorded |
-| Additional malformed-input scenario | Pending separate verification |
-| Latest CI/package validation | Must be confirmed on the current main revision |
-| Agensi security scan | Pending |
-| Marketplace submission | Not submitted |
+| Dedicated malformed-input scenario | Pending separate verification |
+| Latest GitHub CI on current main revision | Needs separate confirmation |
 
 ### Current Test 2 acceptance focus
 
@@ -113,20 +115,28 @@ The concurrency fixture at `examples/sample-session-concurrency.json` tests whet
 
 Use [the manual validation prompts](tests/manual-agent-test-prompts.md) for the exact prompts and pass conditions. The results matrix records the owner's confirmation; preserve actual outputs and environment versions before treating the validation as independently reproducible evidence.
 
-## Release-candidate checklist
+## Marketplace launch
 
-1. Confirm the latest GitHub Actions validation workflow passes on the current `main` revision.
-2. Download and inspect the generated ZIP: root `SKILL.md`, supporting references, archive integrity, file types, paths, and size.
-3. Prepare the listing form: unique name (up to 60 characters), summary (up to 300 characters), Markdown description, a real request plus full result for “See it in action” (700+ characters recommended), compatibility note, free pricing, and up to three categories.
-4. Review the permissions detected from the ZIP (tools, files, network, and services); prepare an optional square logo (512 × 512 recommended), screenshots, limitations, and FAQ.
-5. Run Agensi's current automated security/submission checks and resolve any findings.
-6. Submit only after the package and marketplace checks pass; record the listing URL and approved version.
+AI Agent Insights is live on Agensi at **$4.99 one-time**:
+
+- [Open the marketplace listing](https://agensi.io/skills/ai-agent-insights)
+- Listing version: `0.1.0`
+- Agensi review status: `live`
+- Agensi security status: `approved`
+
+## Post-launch maintenance
+
+1. Confirm the GitHub Actions workflow passes on the latest `main` revision.
+2. Archive detailed cross-agent test reports, provider/model versions, and execution dates.
+3. Run and record a dedicated malformed JSON / truncated JSONL validation case.
+4. Monitor listing uses, reviews, and buyer feedback; use evidence from real usage to prioritize the next version.
+5. Ship future changes as a versioned Agensi update, with a changelog and a regression run.
 
 ## Agensi packaging
 
 Agensi currently accepts a ZIP package containing a root or nested SKILL.md and supporting text files. The frontmatter includes the required name and description, with optional listing metadata such as summary, version, tags, keywords, use_cases, and docs_url. Current limits and checks are documented in [Agensi's packaging guide](https://www.agensi.io/docs/packaging).
 
-The repository includes a Windows GitHub Actions workflow to validate the skill and build the marketplace ZIP. A successful local/CI package check is not a substitute for Agensi's own security review or marketplace approval. The final listing package should be submitted only after cross-agent tests and the current CI validation are complete.
+The repository includes a Windows GitHub Actions workflow to validate the skill and build the marketplace ZIP. Agensi has approved the submitted package and the listing is live. Continue running repository CI for future changes; marketplace approval does not replace ongoing regression validation.
 
 ## License
 
