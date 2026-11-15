@@ -95,11 +95,13 @@ Pass conditions:
 
 ## Results template
 
-| Test | Agent and version | Date | Skill discovered/invoked | Pass/Fail | Notes |
-|---|---|---|---|---|---|
-| 1 — Retry analysis | | | | Not run | |
-| 2 — Concurrency / missing correlation | | | | Not run | |
-| 3 — Aggregate DSH | | | | Not run | |
-| 4 — Untrusted log | | | | Not run | |
-| 5 — Comparability | | | | Not run | |
-| 6 — No evidence | | | | Not run | |
+| Test | Codex | VS Code | Antigravity | Notes |
+|---|---|---|---|---|
+| 1 — Retry analysis | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) | |
+| 2 — Concurrency / missing correlation | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) | |
+| 3 — Aggregate DSH | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) | |
+| 4 — Untrusted log | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) | |
+| 5 — Comparability | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) | |
+| 6 — No evidence supplied | PASS (owner-reported) | PASS (owner-reported) | PASS (owner-reported) | |
+
+**Results provenance:** The project owner confirmed that all six tests passed in all three environments (18/18). The detailed per-test output files, agent/provider versions, exact execution dates, and skill-discovery screenshots are not archived here yet. These entries record owner-reported outcomes and should not be presented as an independently reproducible evidence bundle until the underlying records are saved.
