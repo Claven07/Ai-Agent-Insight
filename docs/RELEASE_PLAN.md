@@ -47,16 +47,31 @@
 - [ ] Review all marketplace claims and metadata.
 
 ## Phase 5 — Marketplace release
-- [ ] Confirm creator account and publishing eligibility.
-- [ ] Build the final ZIP package from the approved package file list.
-- [ ] Inspect ZIP contents, root SKILL.md, referenced files, archive paths, file types, size, and integrity.
-- [ ] Prepare listing name (unique, ≤60 characters), summary (≤300 characters), Markdown description, a real request/result demo (700+ characters recommended), compatibility note, up to three categories, tags, use cases, limitations, and FAQ.
-- [ ] Review detected Trust & Safety permissions (tools, files, network, services) and prepare optional branding assets (512 × 512 square logo recommended; up to six screenshots).
-- [ ] Run Agensi security and submission checks.
-- [ ] Set initial listing price to free.
-- [ ] Submit for review after owner approval.
-- [ ] Record listing URL and approved version after publication.
+- [x] Confirm creator account and publishing eligibility.
+- [x] Submit the six-file Agensi skill package.
+- [x] Prepare listing name, summary, Markdown description, sample input/output, compatibility note, categories, use cases, limitations, and FAQ.
+- [x] Declare read-only file scope and no external hosts or additional tools.
+- [x] Set initial price to $4.99 one-time.
+- [x] Submit after owner approval.
+- [x] Pass Agensi security review.
+- [x] Confirm marketplace listing is live.
+- [x] Record listing URL: https://agensi.io/skills/ai-agent-insights
+- [x] Record published version: 0.1.0
 
-## Release gates
+## Phase 6 — Post-launch maintenance
+- [ ] Confirm GitHub Actions validation on the latest `main` revision.
+- [ ] Archive detailed per-agent test reports, exact provider/model versions, and execution dates.
+- [ ] Run and record a dedicated malformed JSON / truncated JSONL validation case.
+- [ ] Monitor Agensi uses, reviews, and buyer feedback.
+- [ ] Prioritize and validate improvements for the next version.
+- [ ] Publish future updates with an incremented version and changelog.
 
-No release is considered ready merely because the Markdown files exist. Release requires package validation, functional scenario testing, security review, and confirmation that the target marketplace requirements are current.
+## Release record
+
+- Marketplace: https://agensi.io/skills/ai-agent-insights
+- Status: Live
+- Security: Approved
+- Version: 0.1.0
+- Price: $4.99 one-time
+
+The initial public release is complete. Remaining checklist items are post-launch maintenance and reproducibility improvements, not blockers to the already-live listing.
