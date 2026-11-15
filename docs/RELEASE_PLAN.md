@@ -48,8 +48,10 @@
 
 ## Phase 5 — Marketplace release
 - [ ] Confirm creator account and publishing eligibility.
-- [ ] Prepare final ZIP package.
-- [ ] Inspect ZIP contents and file types.
+- [ ] Build the final ZIP package from the approved package file list.
+- [ ] Inspect ZIP contents, root SKILL.md, referenced files, archive paths, file types, size, and integrity.
+- [ ] Prepare listing name (unique, ≤60 characters), summary (≤300 characters), Markdown description, a real request/result demo (700+ characters recommended), compatibility note, up to three categories, tags, use cases, limitations, and FAQ.
+- [ ] Review detected Trust & Safety permissions (tools, files, network, services) and prepare optional branding assets (512 × 512 square logo recommended; up to six screenshots).
 - [ ] Run Agensi security and submission checks.
 - [ ] Set initial listing price to free.
 - [ ] Submit for review after owner approval.
